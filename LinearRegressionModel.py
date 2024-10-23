@@ -24,3 +24,24 @@ multRegMod.fit(x, y)
 #Print intercept and weight
 print(f"Multiple Regression Model Intercept: {multRegMod.intercept_}")
 print(f"Multiple Regression Model Weight: {multRegMod.coef_}")
+
+yPredicted = multRegMod.predict(x)
+
+print(f"Predicted Price: {yPredicted[:6]}")
+
+# Create grid for prediction surface
+Xvals=np.linspace(min(housing['area']), max(housing['area']),20)
+Yvals=np.linspace(min(housing['bedrooms']), max(housing['bedrooms']),20)
+Xg, Yg = np.meshgrid(Xvals, Yvals)
+Zvals = np.array(multRegMod.intercept_[0] + (Xg * multRegMod.coef_[0,0] +  Yg * multRegMod.coef_[0,1]))
+
+# Plot data and surface
+fig = plt.figure(figsize = (10,10))
+ax = plt.axes(projection='3d')
+ax.grid()
+ax.scatter(housing[['area']], housing[['bedrooms']], housing[['price']], color='#1f77b4')
+ax.set_xlabel('Area', fontsize=14)
+ax.set_ylabel('Bedrooms', fontsize=14)
+ax.set_zlabel('Price ($)', fontsize=14)
+ax.plot_surface(Xg, Yg, Zvals, alpha=.25, color='grey')
+plt.show()
