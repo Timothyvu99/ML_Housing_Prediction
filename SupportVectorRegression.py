@@ -41,8 +41,7 @@ mse = mean_squared_error(y_test, y_pred)
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-# Output results
-print("Support Vector Regression Results:")
+# Print
 print("R^2 Score:", f"{r2:.2f}")
 print("Mean Squared Error:", f"{mse:.2f}")
 print("Mean Absolute Error:", f"{mae:.2f}")

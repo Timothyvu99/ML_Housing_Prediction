@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import statsmodels.api as sm
 from sklearn.preprocessing import StandardScaler
-
+import math
 
 print("-------------------------Housing.csv dataset (Logistics Regression)--------------------------")
 
@@ -72,23 +72,23 @@ housing_all = pd.read_csv('Housing.csv')
 #Keep subset of features, and drop missing values
 housing = housing_all[['price', 'area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'guestroom', 'basement', 'hotwaterheating', 'airconditioning', 'parking', 'prefarea', 'furnishingstatus']]
 
-# Manually encode binary and categorical features in the dataset
+# Encode binary and categorical features in the dataset
 housing_data_encoded = housing.copy()
 binary_columns = ['mainroad', 'guestroom', 'basement', 'hotwaterheating', 'airconditioning', 'prefarea']
 
-# Convert 'yes'/'no' values in binary columns to 1 and 0
+# Convert 'yes'/'no' to 1 and 0
 for col in binary_columns:
     housing_data_encoded[col] = housing_data_encoded[col].apply(lambda x: 1 if x == 'yes' else 0)
 
-# # One-hot encode 'furnishingstatus'
+# # One-hot encode furnishingstatus
 housing_data_encoded = pd.get_dummies(housing_data_encoded, columns=['furnishingstatus'], drop_first=True)
 
 # Define features and target
-X = housing_data_encoded.drop(columns=['price'])  # Feature matrix without target
-y = housing_data_encoded['price']  # Target variable
+X = housing_data_encoded.drop(columns=['price']) 
+y = housing_data_encoded['price']  
 
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
 
 # Scale the data
 scaler = StandardScaler()
@@ -102,6 +102,7 @@ multRegMod.fit(X_train_scaled, y_train)
 # Make predictions and evaluate the model
 y_pred = multRegMod.predict(X_test_scaled)
 mse = mean_squared_error(y_test, y_pred)
+root_mse = math.sqrt(mse)
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
@@ -109,14 +110,15 @@ r2 = r2_score(y_test, y_pred)
 print(f"Multiple Regression Model Intercept: {multRegMod.intercept_}")
 print(f"Multiple Regression Model Weight: {multRegMod.coef_}")
 
-print(f"Predicted Price: {y_pred[:6]}")
-
 #R2
 print("Accuracy (r2): ", end="")
 print("%.2f" % (100*r2))
 
 #Mean Squared Error
 print(f"Mean Squared Error: {mse}")
+
+#Root Mean Squared Error
+print(f"Root Mean Squared Error: ${root_mse:.2f}")
 
 #Mean Absolute Error
 print(f"Mean Absolute Error: {mae}")
@@ -128,20 +130,20 @@ housing_all = pd.read_csv('house-prices.csv')
 #Keep subset of features, and drop missing values
 housing = housing_all[['Home','Price','SqFt','Bedrooms','Bathrooms','Offers','Brick']]
 
-# Manually encode binary and categorical features in the dataset
+# Encode binary and categorical features in the dataset
 housing_data_encoded = housing.copy()
 binary_columns = ['Brick']
 
-# Convert 'yes'/'no' values in binary columns to 1 and 0
+# Convert 'yes'/'no' to 1 and 0
 for col in binary_columns:
     housing_data_encoded[col] = housing_data_encoded[col].apply(lambda x: 1 if x == 'yes' else 0)
 
 # Define features and target
-X = housing_data_encoded.drop(columns=['Price'])  # Feature matrix without target
-y = housing_data_encoded['Price']  # Target variable
+X = housing_data_encoded.drop(columns=['Price']) 
+y = housing_data_encoded['Price']
 
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
 
 # Scale the data
 scaler = StandardScaler()
@@ -155,6 +157,7 @@ multRegMod.fit(X_train_scaled, y_train)
 # Make predictions and evaluate the model
 y_pred = multRegMod.predict(X_test_scaled)
 mse = mean_squared_error(y_test, y_pred)
+root_mse = math.sqrt(mse)
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
@@ -171,6 +174,9 @@ print("%.2f" % (100*r2))
 
 #Mean Squared Error
 print(f"Mean Squared Error: {mse}")
+
+#Root Mean Squared Error
+print(f"Root Mean Squared Error: ${root_mse:.2f}")
 
 #Mean Absolute Error
 print(f"Mean Absolute Error: {mae}")

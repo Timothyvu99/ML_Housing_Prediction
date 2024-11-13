@@ -5,7 +5,7 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 
 housing_all = pd.read_csv('house-prices.csv')
 
@@ -29,8 +29,8 @@ y_pred = model.predict(X_test_poly)
 
 # Evaluate the model using Mean Squared Error and R-squared score
 mse = mean_squared_error(y_test, y_pred)
-r2_score = model.score(X_test_poly, y_test)
+r2_score = model.r2_score(X_test_poly, y_test)
 
-print("Mean Squared Error:", mse * 100)
+print("Mean Squared Error:", mse)
 print("R-squared:", r2_score * 100)
 
