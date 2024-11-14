@@ -22,10 +22,11 @@ housing_data_encoded = pd.get_dummies(housing_data_encoded, columns=['furnishing
 
 # Define input features and target
 X = housing_data_encoded.drop(columns=['price'])  
+# X = housing_data_encoded[['area', 'bedrooms', 'bathrooms']]
 y = housing_data_encoded['price']  
 
 # Polynomial Features
-poly = PolynomialFeatures(degree=2, include_bias=False)
+poly = PolynomialFeatures(degree=3, include_bias=False)
 X_poly = poly.fit_transform(X)
 
 # Split data
