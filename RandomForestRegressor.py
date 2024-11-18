@@ -59,7 +59,7 @@ r2 = r2_score(y_test, y_pred)
 print(f"Best hyperparameter: {grid_search.best_params_}")
 
 #R2
-print("Accuracy (r2): ", end="")
+print("R2: ", end="")
 print("%.2f" % (100*r2))
 
 #Mean Squared Error

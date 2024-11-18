@@ -136,64 +136,64 @@ print(f"Root Mean Squared Error: ${root_mse:.2f}")
 #Mean Absolute Error
 print(f"Mean Absolute Error: {mae}")
 
-print("-------------------------housing-prices.csv dataset--------------------------")
-#Load the dataset
-housing_all = pd.read_csv('house-prices.csv')
+# print("-------------------------housing-prices.csv dataset--------------------------")
+# #Load the dataset
+# housing_all = pd.read_csv('house-prices.csv')
 
-#Keep subset of features, and drop missing values
-housing = housing_all[['Home','Price','SqFt','Bedrooms','Bathrooms','Offers','Brick']]
+# #Keep subset of features, and drop missing values
+# housing = housing_all[['Home','Price','SqFt','Bedrooms','Bathrooms','Offers','Brick']]
 
-# Encode binary and categorical features in the dataset
-housing_data_encoded = housing.copy()
-binary_columns = ['Brick']
+# # Encode binary and categorical features in the dataset
+# housing_data_encoded = housing.copy()
+# binary_columns = ['Brick']
 
-# Convert 'yes'/'no' to 1 and 0
-for col in binary_columns:
-    housing_data_encoded[col] = housing_data_encoded[col].apply(lambda x: 1 if x == 'yes' else 0)
+# # Convert 'yes'/'no' to 1 and 0
+# for col in binary_columns:
+#     housing_data_encoded[col] = housing_data_encoded[col].apply(lambda x: 1 if x == 'yes' else 0)
 
-# Define features and target
-X = housing_data_encoded.drop(columns=['Price']) 
-y = housing_data_encoded['Price']
+# # Define features and target
+# X = housing_data_encoded.drop(columns=['Price']) 
+# y = housing_data_encoded['Price']
 
-# Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
+# # Split the data into training and testing sets
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
 
-# Scale the data
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+# # Scale the data
+# scaler = StandardScaler()
+# X_train_scaled = scaler.fit_transform(X_train)
+# X_test_scaled = scaler.transform(X_test)
 
-# Train a multiple linear regression model
-multRegMod = LinearRegression()
-multRegMod.fit(X_train_scaled, y_train)
+# # Train a multiple linear regression model
+# multRegMod = LinearRegression()
+# multRegMod.fit(X_train_scaled, y_train)
 
-# Make predictions and evaluate the model
-y_pred = multRegMod.predict(X_test_scaled)
-mse = mean_squared_error(y_test, y_pred)
-root_mse = math.sqrt(mse)
-mae = mean_absolute_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-# accuracy = accuracy_score(y_true=y_test, y_pred=y_pred)
+# # Make predictions and evaluate the model
+# y_pred = multRegMod.predict(X_test_scaled)
+# mse = mean_squared_error(y_test, y_pred)
+# root_mse = math.sqrt(mse)
+# mae = mean_absolute_error(y_test, y_pred)
+# r2 = r2_score(y_test, y_pred)
+# # accuracy = accuracy_score(y_true=y_test, y_pred=y_pred)
 
-# #Print intercept and weight
-# print(f"Multiple Regression Model Intercept: {multRegMod.intercept_}")
-# print(f"Multiple Regression Model Weight: {multRegMod.coef_}")
+# # #Print intercept and weight
+# # print(f"Multiple Regression Model Intercept: {multRegMod.intercept_}")
+# # print(f"Multiple Regression Model Weight: {multRegMod.coef_}")
 
-# #Predicted
-# print(f"Predicted Price: {y_pred[:6]}")
+# # #Predicted
+# # print(f"Predicted Price: {y_pred[:6]}")
 
-#R2
-print("R2: ", end="")
-print("%.2f" % (100*r2))
+# #R2
+# print("R2: ", end="")
+# print("%.2f" % (100*r2))
 
-# #Accuracy Score
-# print(f"Accuracy Score: {accuracy}")
+# # #Accuracy Score
+# # print(f"Accuracy Score: {accuracy}")
 
-#Mean Squared Error
-print(f"Mean Squared Error: {mse}")
+# #Mean Squared Error
+# print(f"Mean Squared Error: {mse}")
 
-#Root Mean Squared Error
-print(f"Root Mean Squared Error: ${root_mse:.2f}")
+# #Root Mean Squared Error
+# print(f"Root Mean Squared Error: ${root_mse:.2f}")
 
-#Mean Absolute Error
-print(f"Mean Absolute Error: {mae}")
+# #Mean Absolute Error
+# print(f"Mean Absolute Error: {mae}")
