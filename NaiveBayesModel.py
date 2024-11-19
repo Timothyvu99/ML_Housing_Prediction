@@ -1,47 +1,69 @@
-# Import necessary packages and functions
-import numpy as np
-import pandas as pd
-from sklearn.model_selection import train_test_split
+# Import necessary libraries
 from sklearn.naive_bayes import GaussianNB
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import pandas as pd
+import numpy as np
 
 # Load the dataset
-housing_all = pd.read_csv('Housing.csv')
+housing = pd.read_csv('Housing.csv')
 
-# Keep subset of features and drop missing values
-housing = housing_all[['price', 'area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'guestroom', 'basement', 'hotwaterheating', 'airconditioning', 'parking', 'prefarea', 'furnishingstatus']].dropna()
+# Encode binary and categorical features in the dataset
+housing_data_encoded = housing.copy()
+binary_columns = ['mainroad', 'guestroom', 'basement', 'hotwaterheating', 'airconditioning', 'prefarea']
+
+# Convert 'yes'/'no' to 1 and 0
+for col in binary_columns:
+    housing_data_encoded[col] = housing_data_encoded[col].apply(lambda x: 1 if x == 'yes' else 0)
+
+# One-hot encode furnishingstatus
+housing_data_encoded = pd.get_dummies(housing_data_encoded, columns=['furnishingstatus'], drop_first=True)
 
 # Define price categories (low, medium, high) based on percentiles
-housing['price_category'] = pd.qcut(housing['price'], q=3, labels=['low', 'medium', 'high'])
+housing_data_encoded['price_category'] = pd.qcut(housing['price'], q=3, labels=['low', 'medium', 'high'])
 
-# Define input features (area and bedrooms) and target variable (price category)
-x = housing[['area', 'bedrooms']].values
-y = housing['price_category'].values
+# Define input features and target variable
+X = housing_data_encoded[['area', 'bedrooms', 'bathrooms']]  # Example feature set
+y = housing_data_encoded['price_category']
 
-# Split the data into training and test sets
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.5, random_state=42)
+# Label encode the target variable (for numeric compatibility)
+label_encoder = LabelEncoder()
+y = label_encoder.fit_transform(y)
 
-# Initialize the Gaussian Naive Bayes model
+# Scale input features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Initialize the Naive Bayes model
 naive_bayes_model = GaussianNB()
 
-# Fit the model to the training data
-naive_bayes_model.fit(x_train, y_train)
+# Fit the model to the entire dataset
+naive_bayes_model.fit(X_scaled, y)
 
-# Predict on the test data
-y_pred = naive_bayes_model.predict(x_test)
+# Predict on the entire dataset
+y_pred = naive_bayes_model.predict(X_scaled)
 
-# Calculate accuracy and display performance metrics
-accuracy = accuracy_score(y_test, y_pred)
+# Calculate performance metrics
+accuracy = accuracy_score(y, y_pred)
+conf_matrix = confusion_matrix(y, y_pred)
+classification_rep = classification_report(y, y_pred)
+
+# Regression metrics
+mse = mean_squared_error(y, y_pred)
+rmse = np.sqrt(mse)
+mae = mean_absolute_error(y, y_pred)
+r2 = r2_score(y, y_pred)
+
+# Print results
 print(f"Model Accuracy: {accuracy * 100:.2f}%")
-
-# Display classification report and confusion matrix
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
-
 print("\nConfusion Matrix:")
-print(confusion_matrix(y_test, y_pred))
+print(conf_matrix)
+print("\nClassification Report:")
+print(classification_rep)
 
-# Example prediction
-example_data = np.array([[2500, 3]])  # Example: Area = 2500, Bedrooms = 3
-predicted_category = naive_bayes_model.predict(example_data)
-print(f"Predicted Price Category for example data {example_data}: {predicted_category[0]}")
+# Print regression metrics
+print(f"\nMean Squared Error (MSE): {mse:.2f}")
+print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
+print(f"Mean Absolute Error (MAE): {mae:.2f}")
+print(f"R-squared (R²): {r2:.2f}")
