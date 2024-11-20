@@ -5,12 +5,15 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score, classification_report
 import numpy as np
 import math
 
 # Load data
-housing = pd.read_csv('Housing.csv')
+housing_all = pd.read_csv('Housing.csv')
+
+# Keep subset of features, and drop missing values
+housing = housing_all[['price', 'area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'guestroom', 'basement', 'hotwaterheating', 'airconditioning', 'parking', 'prefarea', 'furnishingstatus']]
 
 # Encode binary and categorical features in the dataset
 housing_data_encoded = housing.copy()
@@ -62,4 +65,4 @@ print("R2: ", end="")
 print("%.2f" % (100*r2))
 print(f"Mean Squared Error: {mse:.2f}")
 print(f"Root Mean Squared Error: ${root_mse:.2f}")
-print(f"Mean Absolute Error: {mae:.2f}")
+print(f"Mean Absolute Error: ${mae:.2f}")

@@ -24,7 +24,7 @@ housing_data_encoded = pd.get_dummies(housing_data_encoded, columns=['furnishing
 housing_data_encoded['price_category'] = pd.qcut(housing['price'], q=3, labels=['low', 'medium', 'high'])
 
 # Define input features and target variable
-X = housing_data_encoded[['area', 'bedrooms', 'bathrooms']]  # Example feature set
+X = housing_data_encoded.drop(columns=['price_category']) # Example feature set
 y = housing_data_encoded['price_category']
 
 # Label encode the target variable (for numeric compatibility)
@@ -62,8 +62,8 @@ print(conf_matrix)
 print("\nClassification Report:")
 print(classification_rep)
 
-# Print regression metrics
-print(f"\nMean Squared Error (MSE): {mse:.2f}")
-print(f"Root Mean Squared Error (RMSE): {rmse:.2f}")
-print(f"Mean Absolute Error (MAE): {mae:.2f}")
-print(f"R-squared (R²): {r2:.2f}")
+# Print
+print(f"R2: {r2*100:.2f}")
+print(f"\nMean Squared Error: {mse:.2f}")
+print(f"Root Mean Squared Error: ${rmse:.2f}")
+print(f"Mean Absolute Error: ${mae:.2f}")

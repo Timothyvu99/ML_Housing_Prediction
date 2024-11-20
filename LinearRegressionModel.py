@@ -75,10 +75,10 @@ y_pred = logistic.predict(X_test)
 
 
 print("-------------------------Housing.csv dataset--------------------------")
-#Load the dataset
+# Load the dataset
 housing_all = pd.read_csv('Housing.csv')
 
-#Keep subset of features, and drop missing values
+# Keep subset of features, and drop missing values
 housing = housing_all[['price', 'area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'guestroom', 'basement', 'hotwaterheating', 'airconditioning', 'parking', 'prefarea', 'furnishingstatus']]
 
 # Encode binary and categorical features in the dataset
@@ -114,27 +114,19 @@ mse = mean_squared_error(y_test, y_pred)
 root_mse = math.sqrt(mse)
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
-# accuracy = accuracy_score(y_true=y_test, y_pred=y_pred)
 
-# #Print intercept and weight
-# print(f"Multiple Regression Model Intercept: {multRegMod.intercept_}")
-# print(f"Multiple Regression Model Weight: {multRegMod.coef_}")
-
-#R2
+# R2
 print("R2: ", end="")
 print("%.2f" % (100*r2))
 
-# #Accuracy Score
-# print(f"Accuracy Score: {accuracy}")
-
-#Mean Squared Error
+# Mean Squared Error
 print(f"Mean Squared Error: {mse}")
 
-#Root Mean Squared Error
+# Root Mean Squared Error
 print(f"Root Mean Squared Error: ${root_mse:.2f}")
 
-#Mean Absolute Error
-print(f"Mean Absolute Error: {mae}")
+# Mean Absolute Error
+print(f"Mean Absolute Error: ${mae}")
 
 # print("-------------------------housing-prices.csv dataset--------------------------")
 # #Load the dataset

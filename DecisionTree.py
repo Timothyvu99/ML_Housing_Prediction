@@ -51,4 +51,4 @@ print(f"Mean Squared Error: {mse}")
 print(f"Root Mean Squared Error: ${root_mse:.2f}")
 
 #Mean Absolute Error
-print(f"Mean Absolute Error: {mae}")
+print(f"Mean Absolute Error: ${mae}")
