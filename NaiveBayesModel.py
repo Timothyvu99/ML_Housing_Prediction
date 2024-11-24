@@ -63,7 +63,7 @@ print("\nClassification Report:")
 print(classification_rep)
 
 # Print
-print(f"R2: {r2*100:.2f}")
+print(f"R-Squared: {r2*100:.2f}")
 print(f"\nMean Squared Error: {mse:.2f}")
 print(f"Root Mean Squared Error: ${rmse:.2f}")
 print(f"Mean Absolute Error: ${mae:.2f}")

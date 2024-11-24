@@ -116,17 +116,17 @@ mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
 # R2
-print("R2: ", end="")
+print("R-Squared: ", end="")
 print("%.2f" % (100*r2))
 
 # Mean Squared Error
-print(f"Mean Squared Error: {mse}")
+print(f"Mean Squared Error: {mse:.2f}")
 
 # Root Mean Squared Error
 print(f"Root Mean Squared Error: ${root_mse:.2f}")
 
 # Mean Absolute Error
-print(f"Mean Absolute Error: ${mae}")
+print(f"Mean Absolute Error: ${mae:.2f}")
 
 # print("-------------------------housing-prices.csv dataset--------------------------")
 # #Load the dataset

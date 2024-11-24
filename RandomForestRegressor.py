@@ -1,6 +1,6 @@
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score, accuracy_score
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 import pandas as pd
 import numpy as np
@@ -55,15 +55,12 @@ root_mse = math.sqrt(mse)
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-#Print best hyperparameter
-print(f"Best hyperparameter: {grid_search.best_params_}")
-
 #R2
-print("R2: ", end="")
+print("R-Squared: ", end="")
 print("%.2f" % (100*r2))
 
 #Mean Squared Error
-print(f"Mean Squared Error: {mse}")
+print(f"Mean Squared Error: {mse:.2f}")
 
 #Root Mean Squared Error
 print(f"Root Mean Squared Error: ${root_mse:.2f}")

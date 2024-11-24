@@ -100,7 +100,7 @@ root_mse = math.sqrt(mse)
 mae = mean_absolute_error(y_test, y_pred)
 
 # Print
-print("R2: ", end="")
+print("R-Squared: ", end="")
 print("%.2f" % (100*r2))
 print(f"Mean Squared Error: {mse:.2f}")
 print(f"Root Mean Squared Error: ${root_mse:.2f}")
