@@ -86,7 +86,7 @@ X_test_scaled = scaler.transform(X_test_poly)
 # model = LinearRegression()
 # model.fit(X_train_scaled, y_train)
 
-ridge_model = Ridge(alpha=200.0)  # Adjust alpha for regularization strength
+ridge_model = Ridge(alpha=200.0)  # change for regularization strength
 ridge_model.fit(X_train_scaled, y_train)
 
 # Make predictions on the test set
