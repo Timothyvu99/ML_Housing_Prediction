@@ -11,46 +11,6 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import Ridge
 
-# housing_all = pd.read_csv('house-prices.csv')
-
-# housing = housing_all[['Home','Price','SqFt','Bedrooms','Bathrooms','Offers','Brick','Neighborhood']]
-# housing_data = housing.copy()
-# binary_columns = ['Brick']
-# for col in binary_columns:
-#     housing_data[col] = housing_data[col].apply(lambda x: 1 if x == 'yes' else 0)
-
- 
-# #X = housing[['SqFt', 'Bedrooms', 'Bathrooms']]
-# X = housing_data.drop(columns=['Price'])
-# y = housing_data[['Price']]
-
-# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=42)
-
-# scaler = StandardScaler()
-# X_train_scaled = scaler.fit_transform(X_train)
-# X_test_scaled = scaler.transform(X_test)
-
-# poly_features = PolynomialFeatures(degree= 3)
-# X_train_poly = poly_features.fit_transform(X_train)
-# X_test_poly = poly_features.transform(X_test)
-
-# model = LinearRegression()
-# model.fit(X_train_poly, y_train)
-# # Make predictions on the test set
-# y_pred = model.predict(X_test_scaled)
-
-# # Evaluate the model using Mean Squared Error and R-squared score
-# mse = mean_squared_error(y_test, y_pred)
-# root_mse = math.sqrt(mse)
-# mae = mean_absolute_error(y_test, y_pred)
-# r2 = r2_score(y_test, y_pred)
-
-# print("Mean Squared Error:", mse)
-# print("Root Mean Squared Error: ", root_mse)
-# print("Accuracy (r2):", r2 * 100)
-# print("Mean Absolute Error: ", mae)
-
-# print("------------------------------------------------------------------------")
 
 # Load data
 housing = pd.read_csv('Housing.csv')
