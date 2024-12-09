@@ -42,10 +42,6 @@ scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train_poly)
 X_test_scaled = scaler.transform(X_test_poly)
 
-# train w/ transformed and sclaed features
-# model = LinearRegression()
-# model.fit(X_train_scaled, y_train)
-
 ridge_model = Ridge(alpha=200.0)  # change for regularization strength
 ridge_model.fit(X_train_scaled, y_train)
 
